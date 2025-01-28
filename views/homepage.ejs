@@ -1,0 +1,65 @@
+<html>
+<head>
+    <style>
+        body {
+            background-image: url('https://images.squarespace-cdn.com/content/v1/64cac6e7f41ccf1650ccc43b/1691537255531-J7BYDU9TJG1C1X1JPDQ9/Dubai-Skyline.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<%- include('navbar') %>
+<body>
+    <!-- Hero Section with Brand Name -->
+    <div class="bg-cover bg-center h-96 py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-6xl font-bold text-center text-black font-serif italic">Golden Travels</h1>
+            <p class="mt-4 text-xl text-center text-black font-serif italic">Your Journey Begins With Us</p>
+        </div>
+    </div>
+
+    <!-- Custom Experience Section -->
+    <div class="py-16 bg-white bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Our Approach</h2>
+            <p class="text-xl text-center text-yellow-500 font-semibold mb-8">Our trips are customized 100% to your needs</p>
+            <div class="max-w-4xl mx-auto">
+                <p class="text-gray-600 text-center mb-6">
+                    At Golden Travels, we do not follow the crowd when curating travel experiences for our eager guests. Each destination, stay, and excursion is carefully planned to the finest detail to ensure that your trip is not only seamless but also enjoyable. From five-star accommodation and seven-star cuisine to city tours and desert explorations, our Dubai tour packages have something for everyone.
+                </p>
+                <p class="text-gray-600 text-center">
+                    So, get ready to take in the painstakingly breath-taking sites across the Emirate of Dubai, adventure-filled excursions in the golden-hued desert sands, and more as you revel in luxury.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Travel Packages Section -->
+    <div class="py-16 bg-gray-50 bg-opacity-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Our Travel Packages</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">European Adventure</h3>
+                    <p class="text-gray-600 mb-4">15 days across Europe's most beautiful cities</p>
+                    <p class="text-yellow-500 font-bold">Starting from $3,999</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Asian Discovery</h3>
+                    <p class="text-gray-600 mb-4">12 days exploring Asian culture and cuisine</p>
+                    <p class="text-yellow-500 font-bold">Starting from $2,999</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">American Road Trip</h3>
+                    <p class="text-gray-600 mb-4">10 days across America's iconic landmarks</p>
+                    <p class="text-yellow-500 font-bold">Starting from $2,499</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+</body>
+<%- include('footer') %>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('https://images.squarespace-cdn.com/content/v1/64cac6e7f41ccf1650ccc43b/1691537255531-J7BYDU9TJG1C1X1JPDQ9/Dubai-Skyline.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <%- include('navbar') %>
+    
+    <!-- Team Members Section -->
+    <div class="py-16 bg-white bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Our Team</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <img src="https://media.licdn.com/dms/image/v2/D5635AQENQr-iTXAPuA/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1737218848387?e=1738710000&v=beta&t=3iDIoyjCt-B35I3UwA3DBVrkuDSzodf6VS6dKiEbRU0" alt="Team member" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Yusuf Gadelrab</h3>
+                    <p class="text-gray-600">Founder & CEO</p>
+                    <p class="text-gray-500 mt-2">20+ years in luxury travel</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://media.licdn.com/dms/image/v2/D5603AQFT-NPxYFz44Q/profile-displayphoto-shrink_800_800/B56ZSAI7pbHsAo-/0/1737316613137?e=1743638400&v=beta&t=hvORwb1kZHbLF8950K3M-rdxE-BKgevFYARsDPax4Ak" alt="Team member" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Hengrui Liang</h3>
+                    <p class="text-gray-600">Travel Director</p>
+                    <p class="text-gray-500 mt-2">Expert in European destinations</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Team member" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="text-xl font-semibold mb-2">???</h3>
+                    <p class="text-gray-600">Asian Tours Specialist</p>
+                    <p class="text-gray-500 mt-2">12+ years experience in Asia</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Travel Packages Section -->
+    <div class="py-16 bg-gray-50 bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Our Premium Packages</h2>
+            <div class="space-y-12">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4 text-yellow-500">European Adventure</h3>
+                    <p class="text-gray-600 mb-4">Embark on a 15-day journey through Europe's most enchanting cities. Experience the romance of Paris, the history of Rome, and the charm of Barcelona. Our package includes:</p>
+                    <ul class="list-disc list-inside text-gray-600 mb-4">
+                        <li>Luxury accommodation in 5-star hotels</li>
+                        <li>Private guided tours of historical landmarks</li>
+                        <li>First-class rail travel between cities</li>
+                        <li>Exclusive wine tasting experiences</li>
+                        <li>Gourmet dining at Michelin-starred restaurants</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4 text-yellow-500">Asian Discovery</h3>
+                    <p class="text-gray-600 mb-4">Immerse yourself in a 12-day cultural journey across Asia. From the bustling streets of Tokyo to the serene temples of Kyoto. This package features:</p>
+                    <ul class="list-disc list-inside text-gray-600 mb-4">
+                        <li>Traditional ryokan experiences</li>
+                        <li>Private tea ceremonies</li>
+                        <li>Culinary workshops with local chefs</li>
+                        <li>Bullet train passes</li>
+                        <li>Cultural immersion activities</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connections Section -->
+    <div class="py-16 bg-white bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Our Global Network</h2>
+            <div class="flex justify-center">
+                <img src="https://www.swansea.ac.uk/business-and-industry/business-partnerships/Partnership-board.jpg" 
+                     alt="Our Business Partners" 
+                     class="w-full max-w-4xl rounded-lg shadow-lg">
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<%- include('footer') %>
+</html>
