@@ -1,65 +1,389 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <style>
-        body {
-            background-image: url('https://images.squarespace-cdn.com/content/v1/64cac6e7f41ccf1650ccc43b/1691537255531-J7BYDU9TJG1C1X1JPDQ9/Dubai-Skyline.jpg');
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Personal site for a distributed systems engineer, with an animated hexagon mesh background." />
+<title>Your Name — Distributed Systems Engineer</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='12,2 21,7 21,17 12,22 3,17 3,7' fill='none' stroke='%2317a9e0' stroke-width='2'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050507;
+    --cerulean: #17a9e0;
+    --lime: #8bd332;
+    --blood: #7a0010;
+    --blood-bright: #ff1e3b;
+    --text: #f2f5f5;
+    --muted: #8d9a9d;
+    --border: rgba(255,255,255,0.09);
+    --card: rgba(255,255,255,0.025);
+    --font-display: 'JetBrains Mono', monospace;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-body: 'IBM Plex Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--cerulean); color: #04121a; }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(var(--cerulean), var(--lime)); border-radius: 6px; }
+
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+
+  #hexbg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
+
+  .hex-pulse {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pulse 2.6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { stroke-opacity: 0.6; transform: scale(1); filter: drop-shadow(0 0 5px var(--blood)); }
+    50% { stroke-opacity: 1; transform: scale(1.12); filter: drop-shadow(0 0 38px var(--blood-bright)); }
+  }
+
+  .vignette {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background: radial-gradient(circle at 50% 40%, transparent 0%, rgba(2,2,3,0.35) 55%, rgba(2,2,3,0.9) 100%);
+  }
+
+  .content { position: relative; z-index: 2; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 6vw; z-index: 10;
+    backdrop-filter: blur(10px);
+    background: rgba(5,5,7,0.35);
+  }
+
+  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 500; letter-spacing: 0.5px; font-size: 0.95rem; }
+  .logo svg { width: 20px; height: 20px; }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-family: var(--font-mono); font-weight: 500;
+    font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase;
+    transition: color 0.25s ease; position: relative;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a::after {
+    content: ''; position: absolute; left: 0; bottom: -6px; width: 0; height: 1px;
+    background: linear-gradient(90deg, var(--cerulean), var(--lime));
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 0 6vw; position: relative;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono); font-weight: 500; font-size: 0.85rem; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--cerulean); margin-bottom: 22px;
+  }
+
+  h1.name {
+    font-family: var(--font-display); font-weight: 800; letter-spacing: -0.02em;
+    font-size: clamp(2.6rem, 8vw, 6rem); line-height: 1.05;
+    background: linear-gradient(100deg, var(--cerulean) 10%, var(--lime) 90%);
+    -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 22px;
+  }
+
+  .tagline { max-width: 580px; color: var(--muted); font-size: 1.05rem; margin-bottom: 40px; }
+  .cta-row { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
+
+  .btn {
+    display: inline-block; font-family: var(--font-mono); font-weight: 600; font-size: 0.85rem;
+    letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; padding: 15px 30px;
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .btn-primary { background: linear-gradient(100deg, var(--cerulean), var(--lime)); color: #04121a; }
+  .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); font-weight: 500; }
+  .btn:hover { transform: translateY(-3px); }
+  .btn-primary:hover { box-shadow: 0 10px 30px rgba(23,169,224,0.25); }
+
+  .scroll-cue {
+    position: absolute; bottom: 34px; display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--muted); font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 2px;
+  }
+  .scroll-cue .line {
+    width: 1px; height: 34px; background: linear-gradient(var(--cerulean), var(--lime));
+    animation: scrollline 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollline {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    50.01% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  section { padding: 140px 6vw; max-width: 1200px; margin: 0 auto; }
+  .section-head { margin-bottom: 60px; }
+  .section-head .eyebrow { margin-bottom: 14px; }
+  .section-head h2 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; font-size: clamp(1.8rem, 4vw, 2.6rem); }
+
+  .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; }
+  .about-text p { color: var(--muted); margin-bottom: 18px; max-width: 60ch; }
+  .stat-list { display: flex; flex-direction: column; gap: 26px; }
+  .stat { border-left: 2px solid var(--cerulean); padding-left: 18px; }
+  .stat .num { font-family: var(--font-display); font-weight: 700; font-size: 2.1rem; color: var(--cerulean); }
+  .stat .label { color: var(--muted); font-size: 0.78rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+  .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 28px; }
+  .card { background: var(--card); border: 1px solid var(--border); padding: 34px 28px; transition: border-color 0.3s ease, transform 0.3s ease; }
+  .card:hover { transform: translateY(-6px); border-color: var(--cerulean); }
+  .card .tag { display: inline-block; font-family: var(--font-mono); font-weight: 500; font-size: 0.7rem; color: var(--lime); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+  .card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; margin-bottom: 12px; }
+  .card p { color: var(--muted); font-size: 0.92rem; margin-bottom: 20px; }
+  .card a { color: var(--text); font-family: var(--font-mono); font-weight: 500; font-size: 0.8rem; text-decoration: none; }
+  .card a:hover { color: var(--cerulean); }
+
+  .contact-inner { text-align: center; }
+  .contact-sub { color: var(--muted); max-width: 460px; margin: 0 auto; }
+  .contact-email {
+    font-family: var(--font-display); font-weight: 700; font-size: clamp(1.5rem, 4.5vw, 2.6rem);
+    text-decoration: none; color: var(--text); display: inline-block; margin: 24px 0 40px;
+    border-bottom: 1px solid var(--border); padding-bottom: 6px;
+    transition: color 0.25s ease, border-color 0.25s ease;
+  }
+  .contact-email:hover { color: var(--cerulean); border-color: var(--cerulean); }
+
+  .social-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .social-row a {
+    font-family: var(--font-mono); font-weight: 500; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--muted); text-decoration: none; padding: 10px 18px; border: 1px solid var(--border);
+  }
+  .social-row a:hover { color: var(--text); border-color: var(--lime); }
+
+  footer { text-align: center; padding: 40px 6vw 60px; color: var(--muted); font-family: var(--font-mono); font-size: 0.75rem; }
+
+  @media (max-width: 700px) {
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    nav { padding: 16px 5vw; }
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: 0.65rem; }
+    .logo { font-size: 0.85rem; gap: 8px; }
+    section { padding: 100px 6vw; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hex-pulse { animation: none; }
+    .scroll-cue .line { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
 </head>
-<%- include('navbar') %>
 <body>
-    <!-- Hero Section with Brand Name -->
-    <div class="bg-cover bg-center h-96 py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-6xl font-bold text-center text-black font-serif italic">Golden Travels</h1>
-            <p class="mt-4 text-xl text-center text-black font-serif italic">Your Journey Begins With Us</p>
-        </div>
-    </div>
 
-    <!-- Custom Experience Section -->
-    <div class="py-16 bg-white bg-opacity-90">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">Our Approach</h2>
-            <p class="text-xl text-center text-yellow-500 font-semibold mb-8">Our trips are customized 100% to your needs</p>
-            <div class="max-w-4xl mx-auto">
-                <p class="text-gray-600 text-center mb-6">
-                    At Golden Travels, we do not follow the crowd when curating travel experiences for our eager guests. Each destination, stay, and excursion is carefully planned to the finest detail to ensure that your trip is not only seamless but also enjoyable. From five-star accommodation and seven-star cuisine to city tours and desert explorations, our Dubai tour packages have something for everyone.
-                </p>
-                <p class="text-gray-600 text-center">
-                    So, get ready to take in the painstakingly breath-taking sites across the Emirate of Dubai, adventure-filled excursions in the golden-hued desert sands, and more as you revel in luxury.
-                </p>
-            </div>
-        </div>
-    </div>
+<svg id="hexbg" aria-hidden="true"></svg>
+<div class="vignette"></div>
 
-    <!-- Travel Packages Section -->
-    <div class="py-16 bg-gray-50 bg-opacity-0">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Our Travel Packages</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-4">European Adventure</h3>
-                    <p class="text-gray-600 mb-4">15 days across Europe's most beautiful cities</p>
-                    <p class="text-yellow-500 font-bold">Starting from $3,999</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-4">Asian Discovery</h3>
-                    <p class="text-gray-600 mb-4">12 days exploring Asian culture and cuisine</p>
-                    <p class="text-yellow-500 font-bold">Starting from $2,999</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-4">American Road Trip</h3>
-                    <p class="text-gray-600 mb-4">10 days across America's iconic landmarks</p>
-                    <p class="text-yellow-500 font-bold">Starting from $2,499</p>
-                </div>
-            </div>
-        </div>
+<div class="content">
+  <nav>
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <polygon points="12,2 21,7 21,17 12,22 3,17 3,7" stroke="url(#navGrad)" stroke-width="1.6"/>
+        <defs>
+          <linearGradient id="navGrad" x1="0" y1="0" x2="24" y2="24">
+            <stop offset="0%" stop-color="#17a9e0"/>
+            <stop offset="100%" stop-color="#8bd332"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      YOUR NAME
     </div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-   
+  <section class="hero">
+    <div class="eyebrow">// Distributed Systems Engineer</div>
+    <h1 class="name">Your Name</h1>
+    <p class="tagline">I build distributed systems that stay up when everything else wants to fall over — service meshes, failure-tolerant pipelines, infrastructure that pages the right person at 3am, or nobody at all.</p>
+    <div class="cta-row">
+      <a href="#work" class="btn btn-primary">View My Work</a>
+      <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+    </div>
+    <div class="scroll-cue"><span>SCROLL</span><span class="line"></span></div>
+  </section>
+
+  <section id="about">
+    <div class="section-head">
+      <div class="eyebrow">// About</div>
+      <h2>What I actually do</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Most of what I build lives below the interface — the mesh of services, queues, and health checks that keep a product answering requests at 2am on a Tuesday. I like systems that fail loudly in staging and quietly in production.</p>
+        <p>Before infrastructure, I spent a few years debugging other people's distributed systems as an SRE, which mostly taught me to distrust anything that's never been tested under real load.</p>
+      </div>
+      <div class="stat-list">
+        <div class="stat"><div class="num">99.99%</div><div class="label">Uptime Maintained</div></div>
+        <div class="stat"><div class="num">40K+</div><div class="label">Nodes Orchestrated</div></div>
+        <div class="stat"><div class="num">&lt;200ms</div><div class="label">P99 Latency Target</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="section-head">
+      <div class="eyebrow">// Selected Work</div>
+      <h2>Systems I've shipped</h2>
+    </div>
+    <div class="work-grid">
+      <div class="card">
+        <span class="tag">Service Mesh</span>
+        <h3>Meridian</h3>
+        <p>A zero-downtime service mesh for a 200-node fleet — cut regional failover time from minutes to under 800ms.</p>
+        <a href="#">View Project →</a>
+      </div>
+      <div class="card">
+        <span class="tag">Observability</span>
+        <h3>Pulsecheck</h3>
+        <p>A health-check and alerting layer that replaced four dashboards with one signal, and cut the false-page rate by 70%.</p>
+        <a href="#">View Project →</a>
+      </div>
+      <div class="card">
+        <span class="tag">Data Pipeline</span>
+        <h3>Ferry</h3>
+        <p>A backpressure-aware event pipeline moving 2M+ messages an hour without dropping one during a traffic spike.</p>
+        <a href="#">View Project →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="eyebrow">// Get In Touch</div>
+      <h2>Let's talk infrastructure.</h2>
+      <p class="contact-sub">Open to infrastructure and platform roles, or just talking shop about distributed systems.</p>
+      <a href="mailto:hello@yourname.com" class="contact-email">hello@yourname.com</a>
+      <div class="social-row">
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Twitter / X</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2026 Your Name — built with Go, grep, and mild paranoia.</footer>
+</div>
+
+<script>
+(function () {
+  var svg = document.getElementById('hexbg');
+  var ns = 'http://www.w3.org/2000/svg';
+
+  function hexPoints(cx, cy, r) {
+    var pts = [];
+    for (var i = 0; i < 6; i++) {
+      var angle = (Math.PI / 180) * (60 * i);
+      pts.push((cx + r * Math.cos(angle)).toFixed(1) + ',' + (cy + r * Math.sin(angle)).toFixed(1));
+    }
+    return pts.join(' ');
+  }
+
+  function buildHexGrid() {
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    var defs = document.createElementNS(ns, 'defs');
+    var grad = document.createElementNS(ns, 'linearGradient');
+    grad.setAttribute('id', 'hexGrad');
+    grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+    grad.setAttribute('x1', '0');
+    grad.setAttribute('y1', '0');
+    grad.setAttribute('x2', String(w));
+    grad.setAttribute('y2', String(h));
+    [['0%', '#17a9e0'], ['100%', '#8bd332']].forEach(function (pair) {
+      var stop = document.createElementNS(ns, 'stop');
+      stop.setAttribute('offset', pair[0]);
+      stop.setAttribute('stop-color', pair[1]);
+      grad.appendChild(stop);
+    });
+    defs.appendChild(grad);
+    svg.appendChild(defs);
+
+    var r = Math.max(30, Math.min(58, w / 20));
+    var horiz = r * 1.5;
+    var vert = Math.sqrt(3) * r;
+    var cols = Math.ceil(w / horiz) + 2;
+    var rows = Math.ceil(h / vert) + 2;
+    var targetX = w, targetY = h; // aim for the bottom-right corner of the viewport
+    var halfW = r;
+    var halfH = (Math.sqrt(3) / 2) * r;
+
+    var minDist = Infinity, cornerHex = null;
+    var minDistAny = Infinity, fallbackHex = null;
+    var group = document.createElementNS(ns, 'g');
+
+    for (var col = -1; col <= cols; col++) {
+      var x = col * horiz;
+      var yOffset = (Math.abs(col) % 2 === 1) ? vert / 2 : 0;
+      for (var row = -1; row <= rows; row++) {
+        var y = row * vert + yOffset;
+        var poly = document.createElementNS(ns, 'polygon');
+        poly.setAttribute('points', hexPoints(x, y, r - 3));
+        poly.setAttribute('fill', 'url(#hexGrad)');
+        poly.setAttribute('fill-opacity', '0.15');
+        poly.setAttribute('stroke', 'url(#hexGrad)');
+        poly.setAttribute('stroke-opacity', '0.32');
+        poly.setAttribute('stroke-width', '1');
+        group.appendChild(poly);
+
+        var dist = Math.hypot(x - targetX, y - targetY);
+        if (dist < minDistAny) { minDistAny = dist; fallbackHex = poly; }
+
+        // only consider hexes that sit fully inside the viewport, so the
+        // pulsing one is never clipped by the edge of the screen
+        var onScreen = (x - halfW >= 0) && (x + halfW <= w) && (y - halfH >= 0) && (y + halfH <= h);
+        if (onScreen && dist < minDist) { minDist = dist; cornerHex = poly; }
+      }
+    }
+
+    var pulseHex = cornerHex || fallbackHex;
+    if (pulseHex) {
+      pulseHex.classList.add('hex-pulse');
+      pulseHex.setAttribute('fill', 'none');
+      pulseHex.removeAttribute('fill-opacity');
+      pulseHex.setAttribute('stroke', '#ff1e3b');
+      pulseHex.setAttribute('stroke-opacity', '0.7');
+      pulseHex.setAttribute('stroke-width', '2');
+    }
+
+    svg.appendChild(group);
+  }
+
+  buildHexGrid();
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(buildHexGrid, 180);
+  });
+})();
+</script>
+
 </body>
-<%- include('footer') %>
 </html>
